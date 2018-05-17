@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee</title>
+	<style type="text/css">
+		div, ul{
+			position: absolute;
+			/*border: solid 1px black;*/
+		}
+		div{
+			width: 200px;
+			height: 200px;
+		}
+		ul{
+			width: 300px;
+			height: 300px;
+		}
+		.stuff1{
+			margin-top: 200px;
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Employees</h1>
+	<ul class="names"></ul>
+
+	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+	<script type="text/javascript">
+
+		$.getJSON( "http://localhost:8081/Employee", function(results){
+
+			//console.log(results);
+
+			var selector = results.Employee;
+			var selector2 = results.Subjects;
+			var selector3 = results.Role;
+			var selector4 = results.Room;
+
+			var subs = "";
+			var role = "";
+			var pay = 0;
+
+			var str1 = "";
+			var str2 = "";
+
+			selector.forEach(function(a){
+
+				//console.log(a);
+
+				for(var i = 0; i < a.subjects.length; i++){
+					//subs += "<ul><li>" + selector2[a.subjects[i]].name + "</li></ul>";
+					subs += "<br />" + selector2[a.subjects[i]].name + " -- Room: " + selector4[a.subjects[i]];
+				}
+
+				for(var i = 0; i < a.roles.length; i++){
+					role += "<br />" + selector3[a.roles[i]].name;
+					pay += selector3[a.roles[i]].pay;
+
+					//console.log(selector3[a.roles[a.roles[i]]]);
+
+				}
+
+				str1 += (a.ID + 1) + ") " + a.f + " " + a.l + " -- " + "<li>Subjects:" + subs + "</li><li>Role: " + role + "</li><li>Pay Grade:  " + pay + "</li><br /><br />";
+
+				subs = "";
+				role = "";
+				pay = 0;
+
+			});
+
+			$(".names").html(str1);
+
+		});
+
+	</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

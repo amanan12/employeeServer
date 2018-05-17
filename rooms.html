@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Employee</title>
+	<style type="text/css">
+		li{
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body onload="update()">
+
+	<h1>List of All Rooms</h1>
+
+	<input class="a" type="text" placeholder="First Name" />
+	<input class="b" type="text" placeholder="Last Name" />
+	
+	<select class="roles" multiple>
+		<option>-- Select Role --</option>
+		<option value="0">Administrator</option>
+		<option value="1">Teacher</option>
+		<option value="2">Teacher Assistant</option>
+		<option value="3">Lead Teacher</option>
+		<option value="4">Training Instructor</option>
+	</select>
+
+	<select class="subs" multiple>
+		<option>-- Select Subjects --</option>
+		<option value="0">English</option>
+		<option value="1">Math</option>
+		<option value="2">Science</option>
+		<option value="3">Web Design</option>
+		<option value="4">Database</option>
+		<option value="5">Social Studies</option>
+		<option value="6">Art</option>
+		<option value="7">Robotics</option>
+	 </select>
+
+	<button class="btn1">Add</button>
+
+	<br />
+	<ul>
+		
+		
+
+	</ul>
+
+	<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+	<script type="text/javascript">
+
+	   $(".btn1").click(function(){
+
+	   		var a = $(".a").val(),
+	   			b = $(".b").val(),
+	   			c = $(".c").val();
+
+	   			console.log(role + " " + subs);
+
+	   		if(a == "" && b == "" && c == ""){
+	   			alert("Put Something in the Input Boxes! ^_^");
+	   		} else {
+
+	   			var role = $(".roles").val();
+
+	   			var subs = $(".subs").val();
+
+	   			console.log(role + " " + subs);
+
+	   			$.ajax("http://localhost:8081/Teacher/Add", {
+			    method: "POST",
+			    data: {
+			     f: $(".a").val(),
+			     l: $(".b").val(),
+			     subjects: subs,
+			     roles: role
+			    },
+			    success: function(results){
+			     console.log(results)
+			    },
+			    error: function(err){
+			     console.log(err);
+			    }
+			   });
+
+	   		}
+
+		   $(".a").val("");
+		   $(".b").val("");
+		   $(".c").val("");
+
+		});
+
+	</script>
+
+</body>
+</html>
